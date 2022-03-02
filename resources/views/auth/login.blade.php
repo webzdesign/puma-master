@@ -85,7 +85,7 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <p class="mb-1 float-right">
-                                <a href="{{ route('password.reset') }}" class="text-info">Forgot Password ?</a>
+                                <a href="{{ route('password.request') }}" class="text-info">Forgot Password?</a>
                             </p>
                         </div>
                     </div>
