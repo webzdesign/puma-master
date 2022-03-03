@@ -20,6 +20,7 @@ class RoleTableSeeder extends Seeder
                 'status'   => '1',
                 'slug'        => 'super-admin',
                 'description' => 'Super Admin Role',
+                'level'   => '5',
             ]);
         }
         if (Role::where('name', '=', 'Customer')->exists() === false) {
@@ -29,6 +30,7 @@ class RoleTableSeeder extends Seeder
                 'status'   => '1',
                 'slug'        => 'customer',
                 'description' => 'Customer Role',
+                'level'   => '4',
             ]);
         }
 

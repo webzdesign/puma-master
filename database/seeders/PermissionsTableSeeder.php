@@ -14,23 +14,6 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        /* permission for Role module start */
-        if (Permission::where('name', '=', 'Create Roles')->first() === null) {
-            Permission::create(['name' => 'Create Roles', 'slug' => 'create.roles', 'description' => 'Can Add roles', 'model' => 'Role',]);
-        }
-
-        if (Permission::where('name', '=', 'View Roles')->first() === null) {
-            Permission::create(['name' => 'View Roles', 'slug' => 'view.roles', 'description' => 'Can view roles', 'model' => 'Role',]);
-        }
-
-        if (Permission::where('name', '=', 'Edit Roles')->first() === null) {
-            Permission::create(['name' => 'Edit Roles', 'slug' => 'edit.roles', 'description' => 'Can edit roles', 'model' => 'Role',]);
-        }
-
-        if (Permission::where('name', '=', 'Active/Inactive Roles')->first() === null) {
-            Permission::create(['name' => 'Active/Inactive Roles', 'slug' => 'activeinactive.roles', 'description' => 'Can Activate or deactivate roles', 'model' => 'Role',]);
-        }
-        /* permission for Role module end */
 
         /* permission for User module start */
         if (Permission::where('name', '=', 'Create Users')->first() === null) {
@@ -47,6 +30,33 @@ class PermissionsTableSeeder extends Seeder
 
         if (Permission::where('name', '=', 'Active/Inactive Users')->first() === null) {
             Permission::create(['name' => 'Active/Inactive Users', 'slug' => 'activeinactive.users', 'description' => 'Can Activate or deactivate Users', 'model' => 'User',]);
+        }
+
+        if (Permission::where('name', '=', 'Delete Users')->first() === null) {
+            Permission::create(['name' => 'Delete Users', 'slug' => 'delete.users', 'description' => 'Can Delete Users', 'model' => 'User',]);
+        }
+        /* permission for User module end */
+
+
+        /* permission for Role module start */
+        if (Permission::where('name', '=', 'Create Roles')->first() === null) {
+            Permission::create(['name' => 'Create Roles', 'slug' => 'create.roles', 'description' => 'Can Add roles', 'model' => 'Role',]);
+        }
+
+        if (Permission::where('name', '=', 'View Roles')->first() === null) {
+            Permission::create(['name' => 'View Roles', 'slug' => 'view.roles', 'description' => 'Can view roles', 'model' => 'Role',]);
+        }
+
+        if (Permission::where('name', '=', 'Edit Roles')->first() === null) {
+            Permission::create(['name' => 'Edit Roles', 'slug' => 'edit.roles', 'description' => 'Can edit roles', 'model' => 'Role',]);
+        }
+
+        if (Permission::where('name', '=', 'Active/Inactive Roles')->first() === null) {
+            Permission::create(['name' => 'Active/Inactive Roles', 'slug' => 'activeinactive.roles', 'description' => 'Can Activate or deactivate roles', 'model' => 'Role',]);
+        }
+
+        if (Permission::where('name', '=', 'Delete Roles')->first() === null) {
+            Permission::create(['name' => 'Delete Roles', 'slug' => 'delete.roles', 'description' => 'Can Delete Roles', 'model' => 'Role',]);
         }
         /* permission for Role module end */
 
@@ -83,6 +93,15 @@ class PermissionsTableSeeder extends Seeder
                 'name' => 'Active/Inactive Category',
                 'slug' => 'activeinactive.category',
                 'description' => 'Can Activate or deactivate Category',
+                'model' => 'Category',
+            ]);
+        }
+
+        if (Permission::where('name', '=', 'Delete Category')->first() === null) {
+            Permission::create([
+                'name' => 'Delete Category',
+                'slug' => 'delete.category',
+                'description' => 'Can Delete Category',
                 'model' => 'Category',
             ]);
         }

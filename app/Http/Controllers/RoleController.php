@@ -54,9 +54,9 @@ class RoleController extends Controller
                     }
                 }
 
-                if (auth()->user()->hasPermission('destroy.roles')) {
-                    $action .= " <a id='delete' href='$deleteUrl' class='btn btn-sm btn-danger deleteUser'><i class='fa fa-trash'></i> Delete</a>";
-                }
+                // if (auth()->user()->hasPermission('delete.roles')) {
+                //     $action .= " <a id='delete' href='$deleteUrl' class='btn btn-sm btn-danger deleteUser'><i class='fa fa-trash'></i> Delete</a>";
+                // }
 
                 return $action;
             })
@@ -71,7 +71,7 @@ class RoleController extends Controller
     {
 
         $role = Role::create([
-            'name'          => $request->name,
+            'name'          => trim($request->name),
             'slug'          => str_slug($request->name),
             'description'   => $request->description,
             'status'     => $request->status,
@@ -97,7 +97,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $role               = Role::find($id);
-        $role->name         =  $request->name;
+        $role->name         =  trim($request->name);
         $role->slug         =  str_slug($request->name);
         $role->description  =  $request->description;
         $role->status    =  $request->status;

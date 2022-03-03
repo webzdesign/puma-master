@@ -27,7 +27,7 @@ Route::get('/verifyOtp/{id}', [LoginController::class, 'verifyOtp'])->name('veri
 Route::post('/checkOtp/{id}', [LoginController::class, 'checkOtp'])->name('checkOtp');
 
 
-Route::prefix('/')->middleware(['auth'])->group(function () {
+Route::prefix('/')->middleware(['auth','CheckRoleStatus'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::group(['prefix'=>'user'],function(){

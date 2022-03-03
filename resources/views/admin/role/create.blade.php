@@ -19,7 +19,7 @@
 
                             <div class="col-md-4 mb-3 col-sm-12">
                                 <label class="form-label">Name <span class="requride_cls">*</span></label>
-                                <input type="text" class="form-control" name="name" placeholder="Name"
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name"
                                     value="{{ old('name') }}" />
                                 @error('name')
                                     <span class="error">
@@ -64,7 +64,7 @@
 
 
                         <div class="col-md-12 mb-3 col-sm-12">
-                            <label class="form-label">Permissions :</label>
+                            <label class="form-label pl-1">Permissions :</label>
                             <div class="col-lg-12 permission-card">
                                 @php
                                     $cnt = 1;
@@ -82,10 +82,10 @@
 
                                                 <div class="text-center pl-2 pr-2">
                                                     <a class="float-left permission-card-title selectDeselect"
-                                                        style="cursor: pointer;color:rgb(24, 84, 213);" value="deselect">Deselect
-                                                        All</a>
+                                                    style="cursor: pointer;color:rgb(24, 84, 213);" value="select">Select
+                                                    All</a>
                                                     <a class="float-right permission-card-title selectDeselect"
-                                                        style="cursor: pointer;color:rgb(24, 84, 213);" value="select">Select
+                                                        style="cursor: pointer;color:rgb(24, 84, 213);" value="deselect">Deselect
                                                         All</a>
                                                 </div>
                                             </div>
@@ -152,9 +152,16 @@
                 rules: {
                     name: {
                         required: true,
-                    },
-                    role: {
-                        required: true,
+                        remote: {
+                            type: 'POST',
+                            url: "{{ route('role.checkRole') }}",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                name: function() {
+                                    return $("#name").val();
+                                },
+                            },
+                        },
                     },
                     description: {
                         required: true,
@@ -169,11 +176,9 @@
                 },
                 messages: {
                     name: {
-                        required: "User Name Is Required.",
-                    },
-                    role: {
-                        required: "User Role Is Required.",
-                        remote: "User Role Limit Is Over."
+                        required: "Role Name Is Required.",
+                        remote: "Role Already Exist."
+
                     },
                     description: {
                         required: "Description Is Required.",

@@ -1,10 +1,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('home') }}" class="brand-link">
+    <a href="{{ route('home') }}" class="ml-1 brand-link">
         <img src="{{ asset('public/assets/img/noimage.jpg') }}" alt="Site Logo"
             style="width:50px;height:50px;border-radius:10px;">
-        <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+        <span class="ml-2 brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -31,12 +31,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ Request::is('#') || Request::is('#/*') ? 'active' : '' }}">
-                        <i class="fa fa-edit nav-icon"></i>
-                        <p>About</p>
-                    </a>
-                </li>
                 <li class="nav-item has-treeview {{ Request::is('user') || Request::is('user/*') || Request::is('role') || Request::is('role/*')? 'menu-open': '' }}">
                     <a href="#"
                         class="nav-link {{ Request::is('user') || Request::is('user/*') || Request::is('role') || Request::is('role/*')? 'active': '' }}">
@@ -46,6 +40,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @permission('view.users')
                         <li class="nav-item">
                             <a href="{{ route('user') }}"
                                 class="nav-link {{ Request::is('user') || Request::is('user/*') ? 'active' : '' }}">
@@ -53,6 +48,8 @@
                                 <p>User Details</p>
                             </a>
                         </li>
+                        @endpermission
+                        @permission('view.roles')
                         <li class="nav-item">
                             <a href="{{ route('role') }}"
                                 class="nav-link {{ Request::is('role') || Request::is('role/*') ? 'active' : '' }}">
@@ -60,8 +57,17 @@
                                 <p>Roles/Permission</p>
                             </a>
                         </li>
+                        @endpermission
                     </ul>
                 </li>
+
+{{--
+                <li class="nav-item">
+                    <a href="#" class="nav-link {{ Request::is('#') || Request::is('#/*') ? 'active' : '' }}">
+                        <i class="fa fa-edit nav-icon"></i>
+                        <p>Text</p>
+                    </a>
+                </li>  --}}
 
             </ul>
         </nav>

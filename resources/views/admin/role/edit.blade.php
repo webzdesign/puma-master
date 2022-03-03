@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Permissions :</label>
+                        <label for="name p-1">Permissions :</label>
                         <div class="col-lg-12 permission-card">
                             @php
                                 $cnt = 1;
@@ -92,10 +92,10 @@
 
                                         <div class="text-center pl-2 pr-2">
                                             <a class="float-left permission-card-title selectDeselect"
-                                                style="cursor: pointer;color:rgb(24, 84, 213);" value="deselect">Deselect
+                                                style="cursor: pointer;color:rgb(24, 84, 213);" value="select">Select
                                                 All</a>
                                             <a class="float-right permission-card-title selectDeselect"
-                                                style="cursor: pointer;color:rgb(24, 84, 213);" value="select">Select
+                                                style="cursor: pointer;color:rgb(24, 84, 213);" value="deselect">Deselect
                                                 All</a>
                                         </div>
                                     </div>
