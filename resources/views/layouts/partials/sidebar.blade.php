@@ -9,7 +9,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ asset('public/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                     alt="User Image">
@@ -18,7 +18,7 @@
                 <a href="{{ route('home') }}"
                     class="d-block text-capitalize">{{ Auth::check() ? Auth::user()->name : 'ADMIN' }}</a>
             </div>
-        </div> --}}
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -31,6 +31,7 @@
                     </a>
                 </li>
 
+                
                 <li class="nav-item has-treeview {{ Request::is('user') || Request::is('user/*') || Request::is('role') || Request::is('role/*')? 'menu-open': '' }}">
                     <a href="#"
                         class="nav-link {{ Request::is('user') || Request::is('user/*') || Request::is('role') || Request::is('role/*')? 'active': '' }}">
@@ -60,6 +61,7 @@
                         @endpermission
                     </ul>
                 </li>
+                
 
                 <li class="nav-item">
                     <a href="{{ route('category') }}" class="nav-link {{ Request::is('category') || Request::is('category/*') ? 'active' : '' }}">

@@ -39,7 +39,7 @@ Route::prefix('/')->middleware(['auth', 'CheckRoleStatus'])->group(function () {
         Route::get('/view/{id}', [UserController::class, 'viewUser'])->name('user.view'); //->middleware('permission:view.users');
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit'); //->middleware('permission:edit.users');
         Route::put('/update/{id}', [UserController::class, 'updateUserData'])->name('user.update');
-        Route::get('/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete'); //->middleware('permission:destroy.users');
+        Route::get('/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete'); //->middleware('permission:delete.users');
         Route::get('/activeInactive/{id}', [UserController::class, 'activeInactive'])->name('user.activeInactive'); //->middleware('permission:activeinactive.users');
     });
 
@@ -50,7 +50,7 @@ Route::prefix('/')->middleware(['auth', 'CheckRoleStatus'])->group(function () {
         Route::post('/store', [RoleController::class, 'store'])->name('role.store');
         Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit'); //->middleware('permission:edit.roles');
         Route::put('/update/{id}', [RoleController::class, 'update'])->name('role.update');
-        Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete'); //->middleware('permission:destroy.roles');
+        Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete'); //->middleware('permission:delete.roles');
         Route::get('/activeinactive/{type}/{id}', [RoleController::class, 'activeinactive'])->name('role.activeinactive'); //->middleware('permission:activeinactive.roles');
         Route::get('/getRoleData', [RoleController::class, 'getRoleData'])->name('role.getRoleData');
         Route::post('/checkRole', [RoleController::class, 'checkRole'])->name('role.checkRole');
@@ -58,14 +58,15 @@ Route::prefix('/')->middleware(['auth', 'CheckRoleStatus'])->group(function () {
 
     /** Routes For category */
     Route::group(['prefix' => 'category'], function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('category'); //->middleware('permission:view.category');
-        Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); //->middleware('permission:create.category');
-        Route::post('/store', [CategoryController::class, 'store'])->name('category.store'); //->middleware('permission:create.category');
-        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit'); //->middleware('permission:edit.category');
-        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update'); //->middleware('permission:edit.category');
-        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
-        Route::get('/activeinactive/{type}/{id}', [CategoryController::class, 'activeinactive'])->name('category.activeinactive'); //->middleware('permission:activeinactive.category');
-        Route::get('/getCategoryData', [CategoryController::class, 'getCategoryData'])->name('category.getCategoryData'); //->middleware('permission:view.category');
-        Route::post('/checkCategoryName', [CategoryController::class, 'checkCategoryName'])->name('category.checkCategoryName'); //->middleware('permission:view.category');
+        Route::get('/', [CategoryController::class, 'index'])->name('category')->middleware('permission:view.category');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create')->middleware('permission:create.category');
+        Route::post('/store', [CategoryController::class, 'store'])->name('category.store')->middleware('permission:create.category');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit')->middleware('permission:edit.category');
+        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update')->middleware('permission:edit.category');
+        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete')->middleware('permission:delete.category');
+        Route::get('/activeinactive/{type}/{id}', [CategoryController::class, 'activeinactive'])->name('category.activeinactive')->middleware('permission:activeinactive.category');
+        Route::get('/getCategoryData', [CategoryController::class, 'getCategoryData'])->name('category.getCategoryData')->middleware('permission:view.category');
+        Route::post('/checkCategoryName', [CategoryController::class, 'checkCategoryName'])->name('category.checkCategoryName')->middleware('permission:view.category');
+        Route::post('/checkCategoryCode', [CategoryController::class, 'checkCategoryCode'])->name('category.checkCategoryCode')->middleware('permission:view.category');
     });
 });

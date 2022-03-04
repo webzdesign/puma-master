@@ -2,7 +2,6 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -10,8 +9,8 @@
                 <div class="card-tools">
                     <div class="btn-group">
                         {{-- @permission('create.users') --}}
-                        @if (auth()->user()->hasPermission('create.roles'))
-                            <a href="{{ route('role.create') }}" class="btn btn-primary btn-sm"><i
+                        @if (auth()->user()->hasPermission('create.category'))
+                            <a href="{{ route($route.'.create') }}" class="btn btn-primary btn-sm"><i
                                     class="fa fa-plus"></i>
                                 New</a>
                         @endif
@@ -24,8 +23,10 @@
                         <tr>
                             <th>Sr No.</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            @if(auth()->user()->hasPermission('edit.roles') || auth()->user()->hasPermission('activeinactive.roles') )
+                            <th>Code</th>
+                            <th>Added By</th>
+                            <th>Status</th>
+                            @if(auth()->user()->hasPermission('edit.category') || auth()->user()->hasPermission('activeinactive.category') )
                             <th>Action</th>
                             @endif
                         </tr>
@@ -79,7 +80,7 @@
                 serverSide: true,
                 pageLength: 50,
                 ajax: {
-                    "url": "{{ route('role.getRoleData') }}",
+                    "url": "{{ route('category.getCategoryData') }}",
                     "dataType": "json",
                     "type": "GET",
                     "data": {
@@ -97,16 +98,22 @@
                         data: 'name'
                     },
                     {
-                        data: 'description'
+                        data: 'code'
                     },
-                    @if(auth()->user()->hasPermission('edit.roles') || auth()->user()->hasPermission('activeinactive.roles') )
+                    {
+                        data: 'added_by'
+                    },
+                    {
+                        data: 'status'
+                    },
+                    @if(auth()->user()->hasPermission('edit.category') || auth()->user()->hasPermission('activeinactive.category') )
                     {
                         data: 'action',
                         orderable: false,
                         searchable: false
                     },
-                    @endif
-                    ],
+                @endif
+                ],
             });
         });
     </script>

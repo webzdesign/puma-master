@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Category;
 use App\Models\PermissionRole;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class RoleController extends Controller
     {
         $moduleName = $this->moduleName;
         $permissions = Permission::get()->groupBy('model');
-        return view($this->view . '/create', compact('moduleName', 'permissions'));
+        $categories = Category::where('status',1)->get();
+        return view($this->view . '/create', compact('moduleName', 'permissions','categories'));
     }
 
     public function getRoleData()
@@ -73,7 +75,7 @@ class RoleController extends Controller
             'name'          => trim($request->name),
             'slug'          => str_slug($request->name),
             'description'   => $request->description,
-            'status'     => $request->status,
+            'status'     => ($request->status) ?? 1,
         ]);
 
         $role->attachPermission($request->permission);
@@ -87,10 +89,11 @@ class RoleController extends Controller
         $moduleName = $this->moduleName;
         $role = Role::find(decrypt($id));
         $permissions = Permission::get()->groupBy('model');
+        $categories = Category::where('status',1)->get();
 
         $existPermissions = PermissionRole::where('role_id', decrypt($id))->pluck('permission_id')->toArray();
 
-        return view($this->view . '/edit', compact('moduleName', 'role', 'permissions', 'existPermissions'));
+        return view($this->view . '/edit', compact('moduleName', 'role', 'permissions', 'existPermissions','categories'));
     }
 
     public function update(Request $request, $id)
@@ -99,19 +102,20 @@ class RoleController extends Controller
         $role->name         =  trim($request->name);
         $role->slug         =  str_slug($request->name);
         $role->description  =  $request->description;
-        $role->status    =  $request->status;
-        // $role->updated_by   =  auth()->user()->id;
+        $role->status    =  ($request->status) ?? $role->status;
         $role->save();
 
         $role->syncPermissions($request->permission);
+        $users = User::where('role_id',$id)->get();
 
-        $users = User::where('role_id', $id)->get();
-
+        foreach($users as $user){
+            $user->syncPermissions($request->permission);
+        }
+   
         foreach ($users as $user) {
             $user->detachAllRoles();
             $user->attachRole($id);
         }
-
 
         Helper::successMsg('update', $this->moduleName);
         return redirect($this->route);
@@ -120,12 +124,10 @@ class RoleController extends Controller
     public function delete($id)
     {
         $role = Role::find(decrypt($id));
-        // dd($role->users->count());
         if ($role->users->count() == 0) {
             PermissionRole::where('role_id', decrypt($id))->delete();
             $role->delete();
             Helper::successMsg('delete', $this->moduleName);
-            // return redirect($this->route);
         } else {
             Helper::failarMsg('custom', "This role have already some users.");
         }

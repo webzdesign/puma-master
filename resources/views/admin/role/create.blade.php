@@ -29,27 +29,46 @@
                             </div>
 
                             <div class="col-md-4 mb-3 col-sm-12">
-                                <label class="form-label">Is Active <span class="requride_cls">*</span></label>
-                                <div class="d-flex d-inline">
-                                    <div class="form-check m-1">
-                                        <input type="radio" class="form-check-input" id="active" name="status" value="1"
-                                            checked />
-                                        <label for="active">Active</label>
-                                    </div>
-
-                                    <div class="form-check m-1">
-                                        <input type="radio" class="form-check-input" id="in_active" name="status"
-                                            value="0" />
-                                        <label for="in_active">In Active</label>
-                                    </div>
-                                </div>
-
-                                @error('status')
+                                <label for="category_id">Category <span class="requride_cls">*</span></label>
+                                <td>
+                                    <select class="select2_single select2bs4 form-control" id="category_id"
+                                        name="category_id[]" multiple>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                @error('category_id')
                                     <span class="error">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
+                            @permission('activeinactive.roles')
+                                <div class="col-md-4 mb-3 col-sm-12">
+                                    <label class="form-label">Status <span class="requride_cls">*</span></label>
+                                    <div class="d-flex d-inline">
+                                        <div class="form-check m-1">
+                                            <input type="radio" class="form-check-input" id="active" name="status" value="1"
+                                                checked />
+                                            <label for="active">Active</label>
+                                        </div>
+
+                                        <div class="form-check m-1">
+                                            <input type="radio" class="form-check-input" id="in_active" name="status"
+                                                value="0" />
+                                            <label for="in_active">In Active</label>
+                                        </div>
+                                    </div>
+
+                                    @error('status')
+                                        <span class="error">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            @endpermission
                         </div>
                         <div class="form-group">
                             <div class="row">
@@ -82,27 +101,29 @@
 
                                                 <div class="text-center pl-2 pr-2">
                                                     <a class="float-left permission-card-title selectDeselect"
-                                                    style="cursor: pointer;color:rgb(24, 84, 213);" value="select">Select
-                                                    All</a>
+                                                        style="cursor: pointer;color:rgb(24, 84, 213);"
+                                                        value="select">Select
+                                                        All</a>
                                                     <a class="float-right permission-card-title selectDeselect"
-                                                        style="cursor: pointer;color:rgb(24, 84, 213);" value="deselect">Deselect
+                                                        style="cursor: pointer;color:rgb(24, 84, 213);"
+                                                        value="deselect">Deselect
                                                         All</a>
                                                 </div>
                                             </div>
                                             <div class="card-body ml-3 mr-3">
 
-                                        @foreach ($permission as $key => $val)
-                                            <div class="custom-control custom-checkbox p-2">
-                                                <input class="custom-control-input permission form-check-input"
-                                                    type="checkbox" id="customCheckbox{{ $cn }}"
-                                                    name="permission[]" value="{{ $val->id }}">
-                                                <label for="customCheckbox{{ $cn }}"
-                                                    class="custom-control-label permision-label cursor-pointer">&nbsp;{{ $val->name }}</label>
+                                                @foreach ($permission as $key => $val)
+                                                    <div class="custom-control custom-checkbox p-2">
+                                                        <input class="custom-control-input permission form-check-input"
+                                                            type="checkbox" id="customCheckbox{{ $cn }}"
+                                                            name="permission[]" value="{{ $val->id }}">
+                                                        <label for="customCheckbox{{ $cn }}"
+                                                            class="custom-control-label permision-label cursor-pointer">&nbsp;{{ $val->name }}</label>
+                                                    </div>
+                                                    @php $cn++; @endphp
+                                                @endforeach
                                             </div>
-                                            @php $cn++; @endphp
-                                        @endforeach
-                                    </div>
-                                    </div>
+                                        </div>
                                     </div>
                                     @if ($cnt % 3 == 0)
                             </div>

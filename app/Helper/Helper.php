@@ -53,6 +53,13 @@ class Helper
             ]));
         }
 
+
+    public static function failarMsg($type,$msg) {
+		if($type == 'custom') {
+			Session()->flash('failmessage', $msg);
+		}
+	}
+
         /* Active Inactive Message */
         public static function activeDeactiveMsg($type, $msg)
         {
