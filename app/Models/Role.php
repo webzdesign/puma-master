@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use jeremykenedy\LaravelRoles\Traits\RoleHasRelations;
 
 class Role extends Model
 {
     use HasFactory;
+    use RoleHasRelations;
     protected $guarded =  [];
 
     public function users()
@@ -18,6 +20,10 @@ class Role extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 1);
+    }
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'categories_roles');
     }
 
 }
