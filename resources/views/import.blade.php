@@ -19,7 +19,11 @@
                     <input type="file" name="file" class="form-control" required>
 
                     <br>
-
+                    @if ($errors->has('file'))
+                    <div class="error">
+                        {{ $errors->first('file') }}
+                    </div>
+                    @endif
                     <button class="btn btn-success">Import User Data</button>
 
                     <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>

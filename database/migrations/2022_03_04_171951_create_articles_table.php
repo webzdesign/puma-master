@@ -21,7 +21,7 @@ class CreateArticlesTable extends Migration
             $table->string('season');
             $table->string('dumy_code');
             $table->string('final_code');
-            $table->integer('style')->nullable();
+            $table->string('style')->nullable();
             $table->string('source');//inline , non inline
             $table->string('style_desc');
             $table->string('color_desc');
@@ -35,14 +35,14 @@ class CreateArticlesTable extends Migration
             $table->string('final_gender');
             $table->string('global_ki')->nullable();
             $table->string('marketing_tier')->nullable();
-            $table->string('channel-aw22');//comman ,offline,online,ecom
+            $table->string('channel-aw22')->nullable();//comman ,offline,online,ecom
             $table->string('line');
             $table->string('customer(online)');//AJIO & Myntra ,for all online customer , not for online , Myntra,AJIO & Flipkart , Only for Myntra , Only for AJIO
             $table->string('story')->nullable();
             $table->string('colab')->nullable();
             $table->longText('upper')->nullable();
-            $table->string('mid_sole')->nullable();
-            $table->string('out_sole')->nullable();
+            $table->longText('mid_sole')->nullable();
+            $table->longText('out_sole')->nullable();
             $table->longText('description')->nullable();
             $table->string('size_run');
             $table->string('technology')->nullable();
